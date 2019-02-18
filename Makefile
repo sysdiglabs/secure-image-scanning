@@ -1,7 +1,7 @@
 all: build push
 
 build:
-	docker build -t sysdig/secure-image-scanning .
+	docker build -t sysdiglabs/secure-image-scanning .
 
 push:
-	docker push sysdig/secure-image-scanning
+	docker push sysdiglabs/secure-image-scanning

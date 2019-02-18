@@ -1,6 +1,7 @@
 # Sysdig Secure Image Scanning
 
-This directory contains the Dockerfile and entrypoint for `sysdig/secure-image-scanning`
+This directory contains the Dockerfile and entrypoint for
+`sysdiglabs/secure-image-scanning`
 
 This Docker image does an static scanning looking for vulnerabilities in the
 image provided.
@@ -10,7 +11,7 @@ image provided.
 `
 docker run -e IMAGE_TO_SCAN="docker.io/library/ubuntu:latest" \
            -e ANCHORE_CLI_USER="xxXXxxXXXxxXX" \
-           sysdig/secure-image-scanning
+           sysdiglabs/secure-image-scanning
 `
 
 ### Parameters
