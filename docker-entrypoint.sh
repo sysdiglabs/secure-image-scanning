@@ -19,7 +19,7 @@ fi
 export ANCHORE_CLI_PASS=""
 
 echo "Adding image ${IMAGE_TO_SCAN} to Anchore engine at ${ANCHORE_CLI_URL}"
-IMAGE_DIGEST=`anchore-cli image add ${IMAGE_TO_SCAN} | grep Digest | awk '{print $3}'`
+IMAGE_DIGEST=`anchore-cli image add ${IMAGE_TO_SCAN} | grep "Image Digest" | awk '{print $3}'`
 if [ -z $IMAGE_DIGEST ]; then
   echo "Backend cannot pull the requested image, wrong credentials or unavailable image, aborting"
   exit 1
