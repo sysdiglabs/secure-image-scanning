@@ -10,16 +10,15 @@ image provided.
 
 `
 docker run -e IMAGE_TO_SCAN="docker.io/library/ubuntu:latest" \
-           -e ANCHORE_CLI_USER="xxXXxxXXXxxXX" \
+           -e SYSDIG_SECURE_TOKEN="xxXXxxXXXxxXX" \
            sysdiglabs/secure-image-scanning
 `
 
-### Parameters
+### Environment variables used as parameters
 
 * IMAGE_TO_SCAN: The image which is going to be scanned i.e.: docker.io/library/debian:latest
-* ANCHORE_CLI_USER: The user used to connect to Anchore API. Can be also the Sysdig Secure API Token.
-* ANCHORE_CLI_PASS: The password used to connect to Anchore API. By default is empty.
-* ANCHORE_CLI_URL: The URL where Anchore server is deployed. By default is `https://secure.sysdig.com/api/scanning/v1/anchore`
+* SYSDIG_SECURE_TOKEN: The Sysdig Secure API Token.
+* TIMEOUT: Timeout for the image scanning, by default is 180 seconds.
 
 ## Makefile usage
 
