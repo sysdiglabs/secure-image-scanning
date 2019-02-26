@@ -18,7 +18,7 @@ docker run -e IMAGE_TO_SCAN="docker.io/library/ubuntu:latest" \
 
 * IMAGE_TO_SCAN: The image which is going to be scanned i.e.: docker.io/library/debian:latest
 * SYSDIG_SECURE_TOKEN: The Sysdig Secure API Token.
-* TIMEOUT: Timeout for the image scanning, by default is 180 seconds.
+* TIMEOUT: Timeout for the image scanning, by default is 10 minutes.
 
 ## Makefile usage
 

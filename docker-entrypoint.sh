@@ -13,8 +13,8 @@ fi
 
 export ANCHORE_CLI_USER=${SYSDIG_SECURE_TOKEN}
 if [ -z $TIMEOUT ]; then
-  echo "env var \$TIMEOUT not defined, defaulting to 180s"
-  export TIMEOUT=180
+  echo "env var \$TIMEOUT not defined, defaulting to 10 minutes"
+  export TIMEOUT=600
 fi
 export ANCHORE_CLI_PASS=""
 
