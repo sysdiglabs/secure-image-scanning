@@ -19,6 +19,7 @@ docker run -e IMAGE_TO_SCAN="docker.io/library/ubuntu:latest" \
 * IMAGE_TO_SCAN: The image which is going to be scanned i.e.: docker.io/library/debian:latest
 * SYSDIG_SECURE_TOKEN: The Sysdig Secure API Token.
 * TIMEOUT: Timeout for the image scanning, by default is 10 minutes.
+* MAX_RETRIES: Sometimes when analyzing the images, the registry takes some time for sending the image and it could lead to a `Not Found` error. So we implemented a retrying mechanism. By default it tries 3 times before giving up.
 
 ## Makefile usage
 

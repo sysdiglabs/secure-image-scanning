@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ -z $SYSDIG_SECURE_TOKEN ]; then
   echo "Missing \$SYSDIG_SECURE_TOKEN env variable, aborting"
   exit 1
@@ -30,6 +29,7 @@ echo "Image digest: "$IMAGE_DIGEST
 echo "Waiting for analysis to complete"
 result=0
 user_time=0
+retries=0
 while [ $user_time -lt $TIMEOUT ]; do
   anchore-cli image get $IMAGE_DIGEST | grep analyzed > /dev/null
   if [ $? -ne 0 ]; then
@@ -37,8 +37,13 @@ while [ $user_time -lt $TIMEOUT ]; do
     sleep 10
     let "user_time=user_time+10"
   else
-    result=1
-    break
+    let "retries=retries+1"
+    if [ $retries -lt $MAX_RETRIES ]; then
+      sleep 10
+    else
+      result=1
+      break
+    fi
   fi
 done
 [ $result -ne 1 ] && echo "Scan timedout." && exit 1
