@@ -12,5 +12,6 @@ ENV IMAGE_TO_SCAN ""
 ENV ANCHORE_CLI_PASS ""
 ENV ANCHORE_CLI_URL "https://secure.sysdig.com/api/scanning/v1/anchore"
 ENV MAX_RETRIES "3"
+ENV ANCHORE_CLI_SSL_VERIFY "n"
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
