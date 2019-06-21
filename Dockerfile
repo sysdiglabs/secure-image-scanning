@@ -3,7 +3,7 @@ FROM python:3-alpine
 LABEL maintainer="Néstor Salceda <nestor.salceda@sysdig.com>"
 
 RUN apk update
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash jq
 RUN pip install anchorecli
 
 COPY ./docker-entrypoint.sh /

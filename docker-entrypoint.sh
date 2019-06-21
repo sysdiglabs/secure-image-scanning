@@ -15,10 +15,11 @@ if [ -z $TIMEOUT ]; then
   echo "env var \$TIMEOUT not defined, defaulting to 10 minutes"
   export TIMEOUT=600
 fi
+
 export ANCHORE_CLI_PASS=""
 
 echo "Adding image ${IMAGE_TO_SCAN} to Anchore engine at ${ANCHORE_CLI_URL}"
-IMAGE_DIGEST=`anchore-cli image add ${IMAGE_TO_SCAN} | grep "Image Digest" | awk '{print $3}'`
+IMAGE_DIGEST=`anchore-cli --json image add ${IMAGE_TO_SCAN} | jq -r ".[].imageDigest"`
 if [ -z $IMAGE_DIGEST ]; then
   echo "Backend cannot pull the requested image, wrong credentials or unavailable image, aborting"
   exit 1
