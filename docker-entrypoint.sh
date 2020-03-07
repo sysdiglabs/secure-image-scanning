@@ -50,6 +50,21 @@ while [ $user_time -lt $TIMEOUT ]; do
   fi
 done
 [ $notanalyzed -ne 0 ] && echo "Scan timedout." && exit 1
-
-echo "Analysis complete"
-anchore-cli evaluate check ${IMAGE_DIGEST} --tag $IMAGE_TAG
+echo "Waiting for scan analysis report to be ready"
+retries=0
+user_time=0
+wait=5
+report=$(anchore-cli evaluate check ${IMAGE_DIGEST} --tag $IMAGE_TAG)
+result=$?
+while [ $result -ne 0 ] && [ $user_time -lt $TIMEOUT ]; do 
+  let "retries=retries+1"
+  echo -n "."
+  sleep $wait
+  let "user_time=user_time+wait"
+  let "wait=wait+5"
+  report=$(anchore-cli evaluate check ${IMAGE_DIGEST} --tag $IMAGE_TAG)
+  result=$?
+done
+[ $retries -gt 0 ] && echo
+echo "$report"
+exit $result
