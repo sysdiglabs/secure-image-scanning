@@ -31,23 +31,25 @@ echo "Waiting for analysis to complete"
 result=0
 user_time=0
 retries=0
+notanalyzed=1 #1 when failure, 0 when success
 while [ $user_time -lt $TIMEOUT ]; do
   anchore-cli image get $IMAGE_DIGEST | grep analyzed > /dev/null
-  if [ $? -ne 0 ]; then
+  notanalyzed=$?
+  if [ $notanalyzed -ne 0 ]; then
     echo -n "."
     sleep 10
     let "user_time=user_time+10"
   else
     let "retries=retries+1"
-    if [ $retries -lt $MAX_RETRIES ]; then
+    if [ $notanalyzed -ne 0 ] && [ $retries -lt $MAX_RETRIES ]; then
+      echo -n "#"
       sleep 10
     else
-      result=1
       break
     fi
   fi
 done
-[ $result -ne 1 ] && echo "Scan timedout." && exit 1
+[ $notanalyzed -ne 0 ] && echo "Scan timedout." && exit 1
 
 echo "Analysis complete"
 anchore-cli evaluate check ${IMAGE_DIGEST} --tag $IMAGE_TAG
